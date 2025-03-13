@@ -37,13 +37,10 @@ func CleanLocation(location string) string {
 // SaveObject 根据 ObjectKey 保存文件
 func SaveObject(reader io.Reader, objectKey string) error {
 	// 根据 objectKey 解析出文件的路径
-	relativePath := filepath.Join("static", objectKey)
-
-	// 提取目录部分
-	dir := filepath.Dir(relativePath)
+	relativePath := filepath.Join(config.OSSFolder, objectKey)
 
 	// 创建文件夹，如果文件夹不存在
-	err := os.MkdirAll(dir, os.ModePerm)
+	err := os.MkdirAll(filepath.Dir(relativePath), os.ModePerm)
 	if err != nil {
 		return err
 	}
